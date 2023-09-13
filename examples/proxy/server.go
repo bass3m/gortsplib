@@ -4,9 +4,8 @@ import (
 	"log"
 	"sync"
 
-	"github.com/bluenviron/gortsplib/v4"
-	"github.com/bluenviron/gortsplib/v4/pkg/base"
-	"github.com/bluenviron/gortsplib/v4/pkg/description"
+	"github.com/bass3m/gortsplib/pkg/base"
+	"github.com/bass3m/gortsplib/pkg/description"
 )
 
 type server struct {

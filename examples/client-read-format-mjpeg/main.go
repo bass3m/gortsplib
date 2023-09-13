@@ -5,10 +5,9 @@ import (
 	"image/jpeg"
 	"log"
 
-	"github.com/bluenviron/gortsplib/v4"
-	"github.com/bluenviron/gortsplib/v4/pkg/format"
-	"github.com/bluenviron/gortsplib/v4/pkg/format/rtpmjpeg"
-	"github.com/bluenviron/gortsplib/v4/pkg/url"
+	"github.com/bass3m/gortsplib/pkg/format"
+	"github.com/bass3m/gortsplib/pkg/format/rtpmjpeg"
+	"github.com/bass3m/gortsplib/pkg/url"
 	"github.com/pion/rtp"
 )
 

@@ -10,7 +10,7 @@ import (
 	"github.com/bluenviron/mediacommon/pkg/codecs/mpeg4video"
 	"github.com/pion/rtp"
 
-	"github.com/bluenviron/gortsplib/v4/pkg/format/rtpmpeg4video"
+	"github.com/bass3m/gortsplib/pkg/format/rtpmpeg4video"
 )
 
 // MPEG4Video is an alias for MPEG4VideoES.

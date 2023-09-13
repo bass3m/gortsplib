@@ -8,7 +8,7 @@ import (
 	"github.com/bluenviron/mediacommon/pkg/codecs/mpeg4audio"
 	"github.com/pion/rtp"
 
-	"github.com/bluenviron/gortsplib/v4/pkg/format/rtpmpeg4audiolatm"
+	"github.com/bass3m/gortsplib/pkg/format/rtpmpeg4audiolatm"
 )
 
 // MPEG4AudioLATM is a RTP format for a MPEG-4 Audio codec.

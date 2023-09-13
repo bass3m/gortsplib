@@ -9,7 +9,7 @@ import (
 	"github.com/bluenviron/mediacommon/pkg/codecs/mpeg4audio"
 	"github.com/pion/rtp"
 
-	"github.com/bluenviron/gortsplib/v4/pkg/format/rtpmpeg4audio"
+	"github.com/bass3m/gortsplib/pkg/format/rtpmpeg4audio"
 )
 
 // MPEG4Audio is an alias for MPEG4AudioGeneric.

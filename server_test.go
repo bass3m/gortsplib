@@ -8,11 +8,11 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/bluenviron/gortsplib/v4/pkg/auth"
-	"github.com/bluenviron/gortsplib/v4/pkg/base"
-	"github.com/bluenviron/gortsplib/v4/pkg/conn"
-	"github.com/bluenviron/gortsplib/v4/pkg/description"
-	"github.com/bluenviron/gortsplib/v4/pkg/headers"
+	"github.com/bass3m/gortsplib/pkg/auth"
+	"github.com/bass3m/gortsplib/pkg/base"
+	"github.com/bass3m/gortsplib/pkg/conn"
+	"github.com/bass3m/gortsplib/pkg/description"
+	"github.com/bass3m/gortsplib/pkg/headers"
 )
 
 var serverCert = []byte(`-----BEGIN CERTIFICATE-----

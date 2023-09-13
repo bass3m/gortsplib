@@ -6,8 +6,8 @@ import (
 
 	psdp "github.com/pion/sdp/v3"
 
-	"github.com/bluenviron/gortsplib/v4/pkg/sdp"
-	"github.com/bluenviron/gortsplib/v4/pkg/url"
+	"github.com/bass3m/gortsplib/pkg/sdp"
+	"github.com/bass3m/gortsplib/pkg/url"
 )
 
 func atLeastOneHasMID(medias []*Media) bool {

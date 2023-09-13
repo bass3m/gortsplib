@@ -3,10 +3,9 @@ package main
 import (
 	"log"
 
-	"github.com/bluenviron/gortsplib/v4"
-	"github.com/bluenviron/gortsplib/v4/pkg/format"
-	"github.com/bluenviron/gortsplib/v4/pkg/format/rtpvp8"
-	"github.com/bluenviron/gortsplib/v4/pkg/url"
+	"github.com/bass3m/gortsplib/pkg/format"
+	"github.com/bass3m/gortsplib/pkg/format/rtpvp8"
+	"github.com/bass3m/gortsplib/pkg/url"
 	"github.com/pion/rtp"
 )
 

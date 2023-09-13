@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/bluenviron/gortsplib/v4/pkg/base"
+	"github.com/bass3m/gortsplib/pkg/base"
 )
 
 func ipPtr(v net.IP) *net.IP {

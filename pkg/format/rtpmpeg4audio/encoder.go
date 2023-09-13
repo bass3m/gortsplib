@@ -1,7 +1,7 @@
 package rtpmpeg4audio
 
 import (
-	"github.com/bluenviron/gortsplib/v4/pkg/format/rtpmpeg4audiogeneric"
+	"github.com/bass3m/gortsplib/pkg/format/rtpmpeg4audiogeneric"
 )
 
 // Encoder is an alias for rtpmpeg4audiogeneric.Encoder.
