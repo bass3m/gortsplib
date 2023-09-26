@@ -1,4 +1,4 @@
-module github.com/bass3m/gortsplib
+module github.com/bass3m/gortsplib/v1
 
 go 1.19
 
