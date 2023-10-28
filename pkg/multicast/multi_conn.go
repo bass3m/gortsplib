@@ -1,3 +1,6 @@
+//go:build !linux
+// +build !linux
+
 package multicast
 
 import (
@@ -22,6 +25,7 @@ type MultiConn struct {
 // NewMultiConn allocates a MultiConn.
 func NewMultiConn(
 	address string,
+	readOnly bool,
 	listenPacket func(network, address string) (net.PacketConn, error),
 ) (Conn, error) {
 	addr, err := net.ResolveUDPAddr("udp4", address)
@@ -64,48 +68,47 @@ func NewMultiConn(
 		return nil, fmt.Errorf("no multicast-capable interfaces found")
 	}
 
-	err = setupReadFrom(readConnIP)
-	if err != nil {
-		readConn.Close() //nolint:errcheck
-		return nil, err
-	}
+	var writeConns []*net.UDPConn
+	var writeConnIPs []*ipv4.PacketConn
 
-	writeConns := make([]*net.UDPConn, len(enabledInterfaces))
-	writeConnIPs := make([]*ipv4.PacketConn, len(enabledInterfaces))
+	if !readOnly {
+		writeConns = make([]*net.UDPConn, len(enabledInterfaces))
+		writeConnIPs = make([]*ipv4.PacketConn, len(enabledInterfaces))
 
-	for i, intf := range enabledInterfaces {
-		tmp, err := listenPacket("udp4", "224.0.0.0:"+strconv.FormatInt(int64(addr.Port), 10))
-		if err != nil {
-			for j := 0; j < i; j++ {
-				writeConns[j].Close() //nolint:errcheck
+		for i, intf := range enabledInterfaces {
+			tmp, err := listenPacket("udp4", "224.0.0.0:"+strconv.FormatInt(int64(addr.Port), 10))
+			if err != nil {
+				for j := 0; j < i; j++ {
+					writeConns[j].Close() //nolint:errcheck
+				}
+				readConn.Close() //nolint:errcheck
+				return nil, err
 			}
-			readConn.Close() //nolint:errcheck
-			return nil, err
-		}
-		writeConn := tmp.(*net.UDPConn)
+			writeConn := tmp.(*net.UDPConn)
 
-		writeConnIP := ipv4.NewPacketConn(writeConn)
+			writeConnIP := ipv4.NewPacketConn(writeConn)
 
-		err = writeConnIP.SetMulticastInterface(intf)
-		if err != nil {
-			for j := 0; j < i; j++ {
-				writeConns[j].Close() //nolint:errcheck
+			err = writeConnIP.SetMulticastInterface(intf)
+			if err != nil {
+				for j := 0; j < i; j++ {
+					writeConns[j].Close() //nolint:errcheck
+				}
+				readConn.Close() //nolint:errcheck
+				return nil, err
 			}
-			readConn.Close() //nolint:errcheck
-			return nil, err
-		}
 
-		err = writeConnIP.SetMulticastTTL(multicastTTL)
-		if err != nil {
-			for j := 0; j < i; j++ {
-				writeConns[j].Close() //nolint:errcheck
+			err = writeConnIP.SetMulticastTTL(multicastTTL)
+			if err != nil {
+				for j := 0; j < i; j++ {
+					writeConns[j].Close() //nolint:errcheck
+				}
+				readConn.Close() //nolint:errcheck
+				return nil, err
 			}
-			readConn.Close() //nolint:errcheck
-			return nil, err
-		}
 
-		writeConns[i] = writeConn
-		writeConnIPs[i] = writeConnIP
+			writeConns[i] = writeConn
+			writeConnIPs[i] = writeConnIP
+		}
 	}
 
 	return &MultiConn{
@@ -174,5 +177,5 @@ func (c *MultiConn) WriteTo(b []byte, addr net.Addr) (int, error) {
 
 // ReadFrom implements Conn.
 func (c *MultiConn) ReadFrom(b []byte) (int, net.Addr, error) {
-	return readFrom(c.readConnIP, c.addr.IP, b)
+	return c.readConn.ReadFrom(b)
 }

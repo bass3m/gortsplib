@@ -157,7 +157,8 @@ func (rr *RTCPReceiver) report() rtcp.Packet {
 
 	rr.totalLostSinceReport = 0
 	rr.totalSinceReport = 0
-
+	fmt.Printf("RTCP receiver report: sender ssrc: %d Fraction Lost: %d Total Lost: %d Jitter: %d\n",
+		rr.senderSSRC, report.Reports[0].FractionLost, report.Reports[0].TotalLost, report.Reports[0].Jitter)
 	return report
 }
 
